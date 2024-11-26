@@ -1,8 +1,11 @@
 <h2>Создайте нового покупателя</h2>
 <form method="POST">
-    <input type="text" name="customer_name" placeholder="Имя" required><br>
-    <input type="text" name="address" placeholder="Адрес" required><br>
-    <input type="text" name="phone" placeholder="Телефон" required><br>
+    <input type="text" name="customer_name" placeholder="Имя" required pattern="^[А-Яа-яЁё\s]+$"
+        title="Пожалуйста, используйте только кириллические символы и пробелы"><br>
+    <input type="text" name="address" placeholder="Адрес" required pattern="^[\u0400-\u04FF0-9.,\- ]+$"
+        title="Пожалуйста, используйте только кириллические символы, цифры и пробелы"><br>
+    <input type="text" name="phone" placeholder="Телефон" required pattern="^[\d\s\(\)\-\+]+$"
+        title="Пожалуйста, используйте только цифры"><br>
     <button type="submit" name="create_customer" class="btn">Создать покупателя</button>
 </form>
 

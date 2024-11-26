@@ -1,6 +1,7 @@
 <h2>Создайте новую модель</h2>
 <form method="POST">
-    <input type="text" name="name" placeholder="Название" required><br>
+    <input type="text" name="name" placeholder="Название" required pattern="^[А-Яа-яЁё\s]+$"
+        title="Пожалуйста, используйте только кириллические символы и пробелы"><br>
     <input type="text" name="model" placeholder="Модель" required><br>
     <input type="text" name="characteristics" placeholder="Характеристики" required><br>
     <input type="number" name="price" placeholder="Цена" required><br>

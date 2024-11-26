@@ -40,7 +40,6 @@ function updateSale($id, $contract_id, $model_id, $quantity)
 {
     global $conn;
     $sql = "UPDATE Sales SET quantity='$quantity', contract_id='$contract_id', model_id='$model_id' WHERE id=$id";
-    echo $sql;
     return $conn->query($sql);
 }
 
