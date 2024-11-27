@@ -300,6 +300,11 @@ tr td:last-child {
     text-align: center;
 }
 
+.guest__buttons {
+    display: flex;
+    gap: 1rem;
+}
+
 #editFields input,
 #userFields input,
 #editUser input {

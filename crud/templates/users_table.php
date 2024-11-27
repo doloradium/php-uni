@@ -8,6 +8,11 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: /index.php");
+    exit();
+}
+
 $currentTable = 'users';
 
 if (isset($_GET['table'])) {

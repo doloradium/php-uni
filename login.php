@@ -64,7 +64,7 @@ function Logout()
 
 if (isset($_GET['logout'])) {
     Logout();
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -101,7 +101,9 @@ if ($enter_site) {
 
         <form class="login__form" action="" method="post">
             <div class="login__item"><span>Никнейм:</span><input type="text" name="username" required></div>
-            <div class="login__item"><span>Пароль:</span><input type="password" name="password" required></div>
+            <div class="login__item"><span>Пароль:</span><input type="password" name="password" required
+                    pattern="^.{8,}$" title="Длина пароля от 8 символов">
+            </div>
             <div class="login__item"><input type="checkbox" name="remember">Запомнить меня</div>
             <input class="btn" type="submit" value="Войти">
         </form>

@@ -64,9 +64,12 @@ if (isset($_POST['submit'])) {
         <h1>Регистрация</h1>
         <form class="login__form" action="" method="post">
             <div class="login__item"><span>Никнейм:</span><input type="text" name="username" required></div>
-            <div class="login__item"><span>Пароль:</span><input type="password" name="password" required></div>
+            <div class="login__item"><span>Пароль:</span><input type="password" name="password" required
+                    pattern="^.{8,}$" title="Длина пароля от 8 символов"></div>
             <div class="login__item"><span>E-mail:</span><input type="email" name="email" required></div>
-            <div class="login__item"><span>Имя:</span><input type="text" name="real_name" required></div>
+            <div class="login__item"><span>Имя:</span><input type="text" name="real_name" required
+                    pattern="^[А-Яа-яЁё\s]+$" title="Пожалуйста, используйте только кириллические символы и пробелы">
+            </div>
             <input class="btn" type="submit" name="submit" value="Зарегистрироваться">
         </form>
         <div class="login__item">
