@@ -1,11 +1,9 @@
 <?php
-// Include database connection
 include 'db_connection.php';
 
 function createContract($customer_id, $contract_date, $execution_date)
 {
     global $conn;
-    // Insert contract into Contracts table
     $sql = "INSERT INTO Contracts (customer_id, contract_date, execution_date) 
             VALUES ('$customer_id', '$contract_date', '$execution_date')";
 
@@ -21,7 +19,6 @@ function getCustomers()
 function getContracts()
 {
     global $conn;
-    // Join Contracts with Customers to fetch all necessary information
     $sql = "SELECT c.id AS contract_id, c.contract_date, c.execution_date, c.customer_id,
                    cu.customer_name 
             FROM Contracts c
@@ -45,7 +42,6 @@ function deleteContract($id)
     return $conn->query($sql);
 }
 
-// Handle POST request for creating contracts
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['create_contract'])) {
         createContract($_POST['customer_id'], $_POST['contract_date'], $_POST['execution_date']);
@@ -56,11 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Handle GET request for deleting a contract
 if (isset($_GET['delete_contract'])) {
     deleteContract($_GET['delete_contract']);
 }
 
-// Include the HTML structure for contracts table and form
 include 'templates/contracts_table.php';
 ?>

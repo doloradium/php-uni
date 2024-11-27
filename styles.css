@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     background-color: #181818;
@@ -17,21 +21,57 @@ body {
 
 .button__back,
 .button__logout {
-    position: sticky;
-    border-radius: 100%;
-    aspect-ratio: 1 / 1;
+    display: flex;
+    position: sticky !important;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 2rem;
+    border-radius: 100% !important;
+    background-color: #0077ff;
+    width: 3rem !important;
+    height: 3rem !important;
 }
 
 .button__back {
-    top: 2rem;
-    left: 2rem;
     transform: rotate(180deg);
 }
 
-.button__logout {
-    top: 2rem;
-    left: calc(100% - 2rem);
-    margin: 2rem;
+.inactive {
+    opacity: 0;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login__item span {
+    width: 100px;
+    text-align: right;
+}
+
+.login__link {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.controls {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
 }
 
 h1,
@@ -68,6 +108,8 @@ form {
 }
 
 input[type='text'],
+input[type='password'],
+input[type='email'],
 input[type='date'],
 input[type='number'],
 select {
@@ -175,14 +217,32 @@ tr td:last-child {
     border: none;
 }
 
-.hub__wrapper {
+.main__container {
     display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
     flex-direction: column;
-    align-items: center;
+    gap: 2rem;
     transform: translate(-50%, -50%);
+}
+
+.info__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info__wrapper>* {
+    margin: 0;
+}
+
+.hub__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #2c2c2c;
@@ -305,7 +365,9 @@ tr td:last-child {
 
     input[type='text'],
     input[type='date'],
+    input[type='password'],
     input[type='number'],
+    input[type='email'],
     select,
     .btn,
     button {
@@ -336,7 +398,9 @@ fieldset {
 
     input[type='text'],
     input[type='date'],
+    input[type='password'],
     input[type='number'],
+    input[type='email'],
     select {
         width: 100%;
         font-size: 14px;

@@ -1,40 +1,43 @@
 <?php
 session_start();
-include('crud/db_connection.php');
+include 'crud/db_connection.php';
 
 function RegisterUser($username, $password, $email, $real_name)
 {
-    global $pdo;
+    global $conn;
 
-    // Check if email already exists in the database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->execute(['email' => $email]);
-    if ($stmt->rowCount() > 0) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
         return 'Email already registered';
     }
 
-    // Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert the new user into the database
-    $stmt = $pdo->prepare("INSERT INTO users (username, password, email, real_name, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$username, $hashed_password, $email, $real_name, 'guest']); // Default role as 'guest'
+    $stmt = $conn->prepare("INSERT INTO users (username, password, email, real_name, role, count, last_login) VALUES (?, ?, ?, ?, ?, 0, NULL)");
+    $role = 'guest';
+    $stmt->bind_param("sssss", $username, $hashed_password, $email, $real_name, $role);
 
-    return true;
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return "Error: " . $stmt->error;
+    }
 }
 
 if (isset($_POST['submit'])) {
-    // Get user input from the form
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $real_name = $_POST['real_name'];
 
-    // Attempt to register the user
     $result = RegisterUser($username, $password, $email, $real_name);
 
     if ($result === true) {
-        header("Location: login.php"); // Redirect to login page after successful registration
+        header("Location: login.php");
         exit();
     } else {
         $error_message = $result;
@@ -57,20 +60,18 @@ if (isset($_POST['submit'])) {
         echo "<p style='color: red;'>$error_message</p>";
     } ?>
 
-    <div class="hub__wrapper">
-        <h1>Register</h1>
-        <form action="" method="post">
-            Username: <br />
-            <input type="text" name="username" required><br />
-            Password: <br />
-            <input type="password" name="password" required><br />
-            Email: <br />
-            <input type="email" name="email" required><br />
-            Real Name: <br />
-            <input type="text" name="real_name" required><br />
-            <input class="btn" type="submit" name="submit" value="Register">
+    <div class="main__container hub__wrapper">
+        <h1>Регистрация</h1>
+        <form class="login__form" action="" method="post">
+            <div class="login__item"><span>Никнейм:</span><input type="text" name="username" required></div>
+            <div class="login__item"><span>Пароль:</span><input type="password" name="password" required></div>
+            <div class="login__item"><span>E-mail:</span><input type="email" name="email" required></div>
+            <div class="login__item"><span>Имя:</span><input type="text" name="real_name" required></div>
+            <input class="btn" type="submit" name="submit" value="Зарегистрироваться">
         </form>
-        <p>Already have an account? </p><a href="login.php">Log in</a>
+        <div class="login__item">
+            <p>Есть аккаунт? </p><a class="login__link" href="login.php">Войти</a>
+        </div>
     </div>
 </body>
 

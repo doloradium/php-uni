@@ -3,7 +3,6 @@
     <select name="contract_id" required>
         <option value="">Выберите контракт</option>
         <?php
-        // Fetch contracts for dropdown
         $contracts = getContracts();
         while ($contract = $contracts->fetch_assoc()) {
             echo '<option value="' . $contract['id'] . '">' . htmlspecialchars($contract['id']) . ' - ' . htmlspecialchars($contract['customer_name']) . '</option>';
@@ -14,7 +13,6 @@
     <select name="model_id" required>
         <option value="">Выберите модель</option>
         <?php
-        // Fetch models for dropdown
         $models = getModels();
         while ($model = $models->fetch_assoc()) {
             echo '<option value="' . $model['id'] . '">' . htmlspecialchars($model['name']) . ' (' . htmlspecialchars($model['model']) . ')</option>';
@@ -39,7 +37,7 @@
     while ($row = $sales->fetch_assoc()) {
         echo '<tr>';
         echo '<td>' . htmlspecialchars($row['contract_id']) . ' - ' . htmlspecialchars($row['customer_name']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['model_name']) . ' (' . htmlspecialchars($row['model_number']) . ')</td>'; // Show model details
+        echo '<td>' . htmlspecialchars($row['model_name']) . ' (' . htmlspecialchars($row['model_number']) . ')</td>';
         echo '<td>' . htmlspecialchars($row['quantity']) . '</td>';
         echo '<td>
                 <button class="btn edit-btn" data-contract_id="' . $row['contract_id'] . '" 

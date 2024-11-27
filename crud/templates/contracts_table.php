@@ -3,7 +3,6 @@
     <select name="customer_id" required>
         <option value="">Выберите клиента</option>
         <?php
-        // Fetch customers for dropdown
         $customers = getCustomers();
         while ($customer = $customers->fetch_assoc()) {
             echo '<option value="' . $customer['id'] . '">' . htmlspecialchars($customer['customer_name']) . '</option>';

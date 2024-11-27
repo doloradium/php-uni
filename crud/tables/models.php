@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include 'db_connection.php';
 
 function createModel($name, $model, $characteristics, $price)
@@ -31,7 +30,6 @@ function deleteModel($id)
     return $conn->query($sql);
 }
 
-// Handle POST request for creating and updating models
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['create_model'])) {
         createModel($_POST['name'], $_POST['model'], $_POST['characteristics'], $_POST['price']);
@@ -42,11 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Handle GET request for deleting a model
 if (isset($_GET['delete_model'])) {
     deleteModel($_GET['delete_model']);
 }
 
-// Include the HTML structure for models table and form
 include 'templates/models_table.php';
 ?>

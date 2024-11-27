@@ -4,6 +4,13 @@ $username = "root";
 $password = "";
 $dbname = "mebel";
 
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -45,13 +52,26 @@ echo "<link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;6
 echo "<link rel='stylesheet' href='styles.css'>";
 echo "</head>";
 echo "<body>";
+?>
 
-echo '<button class="button__back" onclick="window.location.replace(`https://mysite.local/`)" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></button>';
+<div class="controls">
+    <a class="button__back" onclick="window.location.replace('https://mysite.local/')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+        </svg>
+    </a>
 
-echo '<button class="button__logout">';
-echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>';
-echo '</button>';
+    <a href="login.php?logout=true" class="button__logout">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+                d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+        </svg>
+    </a>
+</div>
 
+
+<?php
 echo "<div class='container'>";
 echo "<h1>Отчет о выполнении договоров на продажу мебели за</h1>";
 
@@ -90,11 +110,11 @@ while ($row = $result->fetch_assoc()) {
         }
         $current_contract_id = $row['contract_id'];
         $contractTotal = 0;
-        
+
         echo "<table>";
         echo "<tr><th>Название мебели</th><th>Модель</th><th>Количество, шт.</th><th>Цена модели, руб.</th><th>Стоимость модели, руб.</th></tr>";
     }
-    
+
     echo "<tr>";
     echo "<td>" . $row["model_name"] . "</td>";
     echo "<td>" . $row["model"] . "</td>";

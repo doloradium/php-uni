@@ -1,7 +1,6 @@
 <input type="hidden" id="sale_id" name="sale_id">
 <select id="sale_customer" name="sale_customer" required>
     <?php
-    // Fetch contracts for dropdown
     $contracts = getContracts();
     while ($contract = $contracts->fetch_assoc()) {
         echo '<option value="' . $contract['id'] . '">' . htmlspecialchars($contract['id']) . ' - ' . htmlspecialchars($contract['customer_name']) . '</option>';
@@ -10,7 +9,6 @@
 </select><br>
 <select id="sale_model" name="sale_model" required>
     <?php
-    // Fetch models for dropdown
     $models = getModels();
     while ($model = $models->fetch_assoc()) {
         echo '<option value="' . $model['id'] . '">' . htmlspecialchars($model['name']) . ' (' . htmlspecialchars($model['model']) . ')</option>';

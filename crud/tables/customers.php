@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include 'db_connection.php';
 
 function createCustomer($customer_name, $address, $phone)
@@ -31,7 +30,6 @@ function deleteCustomer($id)
     return $conn->query($sql);
 }
 
-// Handle POST request for creating and updating customers
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['create_customer'])) {
         createCustomer($_POST['customer_name'], $_POST['address'], $_POST['phone']);
@@ -42,11 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Handle GET request for deleting a customer
 if (isset($_GET['delete_customer'])) {
     deleteCustomer($_GET['delete_customer']);
 }
 
-// Include the HTML structure for customers table and form
 include 'templates/customers_table.php';
 ?>

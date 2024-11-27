@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include 'db_connection.php';
 
 function createSale($contract_id, $model_id, $quantity)
@@ -50,7 +49,6 @@ function deleteSale($contract_id, $model_id)
     return $conn->query($sql);
 }
 
-// Handle POST request for creating and updating sales
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['sale_id'])) {
         updateSale($_POST['sale_id'], $_POST['sale_customer'], $_POST['sale_model'], $_POST['sale_quantity']);
@@ -63,11 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Handle GET request for deleting a sale
 if (isset($_GET['delete_sale'])) {
     deleteSale($_GET['delete_sale'], $_GET['model_id']);
 }
 
-// Include the HTML structure for sales table and form
 include 'templates/sales_table.php';
 ?>
