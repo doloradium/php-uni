@@ -250,7 +250,8 @@ tr td:last-child {
     max-width: 900px;
 }
 
-.modal {
+.modal,
+.userModal {
     display: none;
     position: fixed;
     top: 0;
@@ -263,6 +264,10 @@ tr td:last-child {
     overflow: auto;
 }
 
+.full-width {
+    width: 210px !important;
+}
+
 .modal-content {
     margin: 15% auto;
     border: none;
@@ -273,18 +278,27 @@ tr td:last-child {
     max-width: 500px;
 }
 
-#editFields {
+#editFields,
+#userFields,
+#editUser {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#editFields input {
+#userFields {
+    width: 100%;
+}
+
+#editFields input,
+#userFields input,
+#editUser input {
     box-sizing: border-box;
     margin: 0;
     width: 100% !important;
 }
 
+#editForm,
 #editForm {
     display: flex;
     flex-direction: column;
@@ -306,7 +320,8 @@ tr td:last-child {
     text-decoration: none;
 }
 
-.close {
+.close,
+.closeUser {
     float: right;
     color: #bbb;
     font-weight: bold;
@@ -314,7 +329,9 @@ tr td:last-child {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.closeUser:hover,
+.closeUser:focus {
     cursor: pointer;
     color: white;
     text-decoration: none;

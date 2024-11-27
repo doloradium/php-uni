@@ -8,6 +8,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 $username = $_SESSION['username'];
+$role = $_SESSION['role'];
 
 $stmt = $conn->prepare("SELECT username, count, last_login FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
@@ -59,12 +60,21 @@ if (!$user) {
         <div class="hub__wrapper">
             <h1>Панель управления</h1>
             <div class="hub__items">
-                <form method="get" action="crud/crud.php">
-                    <button type="submit">Управление БД</button>
-                </form>
-                <form method="get" action="report_task.php">
-                    <button type="submit">Создать отчет</button>
-                </form>
+                <?php if ($role === 'admin') { ?>
+                    <form method="get" action="crud/templates/users_table.php">
+                        <button type="submit">Пользователи</button>
+                    </form>
+                <?php } ?>
+                <?php if ($role === 'admin') { ?>
+                    <form method="get" action="crud/crud.php">
+                        <button type="submit">Управление БД</button>
+                    </form>
+                <?php } ?>
+                <?php if ($role === 'admin' || $role === 'editor') { ?>
+                    <form method="get" action="report_task.php">
+                        <button type="submit">Создать отчет</button>
+                    </form>
+                <?php } ?>
             </div>
         </div>
     </div>

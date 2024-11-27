@@ -1,5 +1,21 @@
 var modal = document.getElementById("editModal");
+var userModal = document.getElementById("editUserModal");
 var editBtns = document.querySelectorAll(".edit-btn");
+var editUserBtns = document.querySelectorAll(".edit-user-btn");
+
+editUserBtns.forEach(function (btn) {
+    btn.onclick = function () {
+
+        console.log(this.dataset.user_username)
+
+        document.getElementById("user_id").value = this.dataset.id || '';
+        document.getElementById("user_username").value = this.dataset.username || '';
+        document.getElementById("user_email").value = this.dataset.email || '';
+        document.getElementById("user_name").value = this.dataset.name || '';
+
+        userModal.style.display = "block";
+    };
+});
 
 editBtns.forEach(function (btn) {
     btn.onclick = function () {
@@ -38,6 +54,15 @@ editBtns.forEach(function (btn) {
     };
 });
 
-document.querySelector(".close").onclick = function () {
-    modal.style.display = "none";
-};
+
+if (document.querySelector(".close")) {
+    document.querySelector(".close").onclick = function () {
+        modal.style.display = "none";
+    };
+}
+
+if (document.querySelector(".closeUser")) {
+    document.querySelector(".closeUser").onclick = function () {
+        userModal.style.display = "none";
+    };
+}
