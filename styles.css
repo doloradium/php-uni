@@ -290,6 +290,16 @@ tr td:last-child {
     width: 100%;
 }
 
+.welcome__wrapper {
+    gap: 2rem !important;
+    width: 500px;
+}
+
+.welcome__wrapper>* {
+    margin: 0 !important;
+    text-align: center;
+}
+
 #editFields input,
 #userFields input,
 #editUser input {

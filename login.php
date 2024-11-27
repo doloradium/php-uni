@@ -11,7 +11,7 @@ function Login($username, $password, $remember)
         return false;
     }
 
-    $stmt = $conn->prepare("SELECT username, password, role FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT username, password, role, count FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -22,17 +22,25 @@ function Login($username, $password, $remember)
         return false;
     }
 
-    echo "Entered Password: " . htmlspecialchars($password) . "<br>";
-    echo "Stored Hashed Password: " . htmlspecialchars($user['password']) . "<br>";
-
     if (password_verify($password, $user['password'])) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = $user['role'];
 
-        $updateStmt = $conn->prepare("UPDATE users SET count = count + 1, last_login = NOW() WHERE username = ?");
-        $updateStmt->bind_param("s", $username);
-        $updateStmt->execute();
+        // Check if the user is an admin or editor, and update count and last_login accordingly
+        if ($user['role'] == 'admin' || $user['role'] == 'editor') {
+            // Update login count and last login time
+            $updateStmt = $conn->prepare("UPDATE users SET count = count + 1, last_login = NOW() WHERE username = ?");
+            $updateStmt->bind_param("s", $username);
+            $updateStmt->execute();
+        }
 
+        // If it's the first login for admin/editor, redirect to welcome.php
+        if ($user['count'] == 0 && ($user['role'] == 'admin' || $user['role'] == 'editor')) {
+            header("Location: welcome.php");
+            exit();
+        }
+
+        // Remember me functionality
         if ($remember) {
             setcookie('username', $username, time() + 3600 * 24 * 7);
         }
@@ -44,6 +52,8 @@ function Login($username, $password, $remember)
 
     return false;
 }
+
+
 
 function Logout()
 {
