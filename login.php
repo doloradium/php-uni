@@ -26,21 +26,17 @@ function Login($username, $password, $remember)
         $_SESSION['username'] = $username;
         $_SESSION['role'] = $user['role'];
 
-        // Check if the user is an admin or editor, and update count and last_login accordingly
         if ($user['role'] == 'admin' || $user['role'] == 'editor') {
-            // Update login count and last login time
             $updateStmt = $conn->prepare("UPDATE users SET count = count + 1, last_login = NOW() WHERE username = ?");
             $updateStmt->bind_param("s", $username);
             $updateStmt->execute();
         }
 
-        // If it's the first login for admin/editor, redirect to welcome.php
         if ($user['count'] == 0 && ($user['role'] == 'admin' || $user['role'] == 'editor')) {
             header("Location: welcome.php");
             exit();
         }
 
-        // Remember me functionality
         if ($remember) {
             setcookie('username', $username, time() + 3600 * 24 * 7);
         }

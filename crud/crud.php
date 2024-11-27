@@ -87,7 +87,6 @@ if (isset($_GET['table'])) {
             <span class="close">&times;</span>
             <h2>Редактировать</h2>
             <form id="editForm" method="POST">
-                <!-- <input type="hidden" id="edit_id" name="edit_id"> -->
                 <div id="editFields">
                     <?php
                     switch ($currentTable) {

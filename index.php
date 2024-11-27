@@ -2,16 +2,12 @@
 session_start();
 include 'crud/db_connection.php';
 
-// Check if the user is not logged in (unauthorized)
 if (!isset($_SESSION['username'])) {
-    // Show the login and registration buttons for unauthorized users
     $unauthorized = true;
 } else {
-    // If the user is logged in, fetch user data
     $username = $_SESSION['username'];
     $role = $_SESSION['role'];
 
-    // Update SQL query to fetch real_name instead of username
     $stmt = $conn->prepare("SELECT real_name, count, last_login FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -59,10 +55,8 @@ if (!isset($_SESSION['username'])) {
     <?php } ?>
 
     <div class="main__container">
-        <!-- If the user is logged in, show the user info and control panel -->
         <?php if (!$unauthorized) { ?>
             <div class="info__wrapper">
-                <!-- Display real_name instead of username -->
                 <h1>Добро пожаловать, <?php echo htmlspecialchars($user['real_name']); ?>!</h1>
                 <?php if ($role === 'guest') { ?>
                     <p>Подождите, пока администратор одобрит вашу заявку</p>
@@ -95,7 +89,6 @@ if (!isset($_SESSION['username'])) {
             <?php } ?>
         <?php } ?>
 
-        <!-- If the user is not logged in, show login and register buttons -->
         <?php if ($unauthorized) { ?>
             <div class="main__container hub__wrapper welcome__wrapper">
                 <h1>Добро пожаловать на сайт!</h1>
